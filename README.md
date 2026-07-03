@@ -1,5 +1,9 @@
 # Project Ebony: The Sovereign Edge-Intelligence Ecosystem
 
+**CAGE Code:** 1AHA8
+* **UEI Number:** S1M4ENLHTDH5
+* **Federal Track:** National Science Foundation (NSF) America's Seed Fund — Phase I Under Review [Tracking ID: 00116550]
+
 Ebony is a highly resilient, decentralized, edge-intelligent infrastructure ecosystem designed to manage large-scale operations in completely disconnected, off-grid, or hostile communications environments.
 
 By unifying all hardware bedrock, software runtimes, sub-GHz communications, and active machine controls under a single architectural framework, Ebony eliminates all reliance on external cloud databases, centralized corporate authorities, web APIs, or active commercial internet connectivity.
