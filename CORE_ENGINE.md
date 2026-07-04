@@ -1,10 +1,20 @@
-# Core Architecture Runtime Engine Specification
+# CORE_ENGINE: Sovereign Runtime & Deterministic Execution Specification
 
-This file outlines the high-level operational lifecycle, plugin subsystem abstraction layers, and threading priorities of the main ecosystem daemon.
+This specification defines the bare-metal execution architecture, deterministic thread scheduling, and memory isolation protocols for the Project Ebony core runtime loop operating on edge-native silicon (NVIDIA Jetson / ARM64).
 
-## 1. High-Performance Execution Loop
-* **Resource Isolation Boundaries:** Enforces strict execution limits across asynchronous application threads to prevent background analytics from starving real-time physical interface lines.
-* **Native Plugin Abstractions:** Exposes stable, low-latency C/C++ interface layers allowing independent modular hardware drivers to hook into the primary logic loop securely.
+## 1. Deterministic Execution Loop & Kernel Isolation
+The core engine rejects standard asynchronous task scheduling. To guarantee latency bounds for physical machine control, the runtime operates on a hardened Linux 6.8 kernel patched with **RT-PREEMPT**.
 
-## 2. Deterministic State Diagnostics
-* Monitors operational loops via a dedicated hardware watchdog, enforcing an immediate state snapshot and graceful fallback sequence if processing routines hang.
+* **Strict Cgroup Partitioning:** Heavy computational workloads (e.g., spatial vision inference, telemetry serialization) are sandboxed via kernel `cgroups` and pinned to specific Deep Learning Accelerator (DLA) cores. 
+* **Real-Time Priority Scheduling:** Physical interface threads (J1939 CAN bus injection, Modbus RTU polling) are assigned maximum FIFO priority (`SCHED_FIFO`). The system guarantees a control-loop jitter of $< 5 \text{ ms}$ under maximum CPU load.
+
+## 2. Zero-Copy FFI (Foreign Function Interface)
+The core logic agent (compiled via Dart/Flutter ahead-of-time) does not execute hardware commands directly. It orchestrates state intentions. 
+
+* **Native C++ Binding:** All mechanical actuations, cryptography, and sub-GHz radio modulations are executed by hardened C++ modules. The Dart runtime interfaces with these modules via strict FFI bindings utilizing zero-copy memory sharing to eliminate garbage collection (GC) latency spikes during critical physical operations.
+
+## 3. Deadman Diagnostics & Hardware Watchdog
+The core engine does not rely on software-level error catching for physical safety. 
+
+* **State Snapshots:** The C++ runtime syncs an append-only state hash to local solid-state memory at $10 \text{ Hz}$.
+* **Hardware Deadman Switch:** A discrete hardware watchdog timer monitors the primary control loop. If the core thread hangs, misses a tick, or fails a localized integrity check, the watchdog bypasses the OS entirely, severing the hydraulic pilot valves to physically immobilize the asset while triggering an immediate TPM 2.0 cryptographic seal of the operational ledger.
