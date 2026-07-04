@@ -1,10 +1,24 @@
-# Edge Retraining & Parameter Optimization Specification
+# EDGE_RETRAINING: On-Device Weight Modification & Deterministic Fine-Tuning
 
-This file outlines the localized weight modification, hardware acceleration constraints, and decentralized verification protocols for model tuning.
+**Classification:** Gated Engineering Documentation / Cognitive Layer
+**Target Architecture:** NVIDIA Jetson Orin NX (ARM64) / Tensor Cores & DLA
 
-## 1. Local Hyperparameter Tuning
-* **Isolated Gradient Accumulation:** Compute nodes utilize local, uncorrupted telemetry logs to adjust model weight vectors natively on local deep learning accelerators.
-* **Strict Resource Caps:** Training threads are execution-throttled via kernel scheduling parameters to ensure active inference pipelines maintain deterministic response times.
+This specification outlines the localized weight modification, hardware acceleration constraints, and decentralized verification protocols for model tuning. Project Ebony rejects cloud-dependent Federated Learning (FL) loops; all parameter optimization and gradient accumulation must execute strictly within the air-gapped node.
 
-## 2. Local Validation Gates
-* New parameter weights must pass an automated regression validation harness locally before being promoted to production runtime status on the node.
+## 1. Local Gradient Accumulation
+Edge assets continuously encounter novel physical conditions (e.g., varying soil densities, unmapped aquifer hydrology). Compute nodes utilize uncorrupted, locally generated sensor logs to adjust spatial and physical model weight vectors natively.
+
+* **Isolated Backpropagation:** The localized parameter update vector:
+  $$\theta_{t+1}=\theta_t-\eta\nabla_\theta\mathcal{L}(\theta_t;x,y)$$
+  is executed entirely on the local Tensor Cores. The training telemetry $(x,y)$ never leaves the physical chassis, ensuring zero data exfiltration.
+* **Strict Resource Caps:** As defined in `SECURE_BOOT.md`, training loops operate exclusively within **Pool Beta** (`cgroups v2`, `SCHED_OTHER` priority). The RT-PREEMPT Linux kernel aggressively throttles these backpropagation matrix multiplications to guarantee that the active inference and J1939 CAN bus pipelines (`SCHED_FIFO`) maintain their sub-5 ms deterministic control loops.
+
+## 2. Local Validation Gates & Physical Bounding
+A localized model cannot arbitrarily promote itself to active physical control. New parameter weights must pass an automated, physics-bound regression harness natively on the edge before being promoted to the runtime production environment.
+
+* **Mechanical Sanity Bounding:** The internal validation harness tests the updated model against frozen edge-case scenarios, evaluating maximum hydraulic loads and IMU pitch/roll limits. If the new weights predict an actuation curve that violates mechanical safety parameters, the entire training epoch is instantly discarded.
+* **TensorRT Compilation:** Upon passing validation, the tuned weights are quantized to INT8 and compiled into an optimized TensorRT `.engine` file to maximize inference throughput on the Deep Learning Accelerator (DLA).
+
+## 3. Cryptographic Promotion & Mesh Gossiping
+* **TPM Hash Signing:** The finalized model binary is hashed via SHA-256 and signed by the node's local TPM 2.0 module. The runtime will not execute unsigned cognitive models.
+* **Delta Broadcasting:** To elevate fleet intelligence without wide-area telecom access, the INT8 weight deltas are serialized into highly compressed FlatBuffers (see `FLATBUFFER_SERIALIZATION.md`) and gossiped across the 900 MHz FHSS radio link. Adjacent nodes ingest these deltas, pushing them through their own localized validation gates before merging the intelligence into their state ledgers.
