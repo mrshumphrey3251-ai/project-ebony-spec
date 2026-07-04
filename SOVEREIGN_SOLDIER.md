@@ -1,95 +1,108 @@
-# Project Ebony: The Sovereign Soldier Perimeter & Wearable Node
-Document Version: 1.0.0 (2026 Release Track)
-Classification: Kinetic Edge Autonomy / Wearable Ingestion
+# KINETIC_GOVERNANCE: Sovereign Flight Perimeter & Avionics Isolation
 
-The cloud is dead. The sky is dark. The GPS is spoofed. 
+**Classification:** Project Ebony / Aerospace Sovereign Layer  
+**Target Architecture:** ARINC 429 / AFDX (ARINC 664) / DO-178C RT-PREEMPT / Zero-Trust Uplink  
 
-A squad of dismounted infantry is moving through the dense, ruined concrete of a contested urban canyon. The air smells like pulverized drywall and cordite. Above them, the adversary has deployed a massive electronic warfare (EW) blanket over the entire grid. To the Pentagon sitting thousands of miles away, this squad has ceased to exist. 
+This specification handles the physical isolation, deterministic bus policing, and mathematical state verification for commercial and tactical avionics arrays. An aircraft cannot rely on ground-based IP infrastructure to maintain its flight envelope. The edge node (the Sovereign Flight Computer) must physically bridge the gap between legacy federated avionics (ARINC 429) and modern integrated modular avionics (AFDX). It must mathematically guarantee that malicious cloud uplinks or spoofed ACARS telemetry can never cross the hardware gap to manipulate the fly-by-wire actuators or engine controllers.
 
-Under legacy military doctrine, this is the nightmare scenario. Today’s military tech treats the dismounted soldier like a dependent endpoint—strapping them with heavy, battery-draining communication arrays that constantly scream biometric health data and GPS coordinates up to a centralized server. In a modern EW environment, continuous radio transmission is a death sentence. It makes you a glowing beacon for enemy Signals Intelligence (SIGINT) artillery strikes. 
+## Nomenclature & Acronym Glossary
 
-This squad isn't running legacy tech. They are running Project Ebony. They do not view the severance of the cloud as a failure; they view it as the baseline operating environment. 
-
----
-
-## 1. The Approach: The Biometric Vault
-The Point Man, Miller, is sweating. The temperature in the urban ruins is climbing, the ceramic plates are heavy on his chest, and his heart rate is spiking as he clears the rubble. In a legacy system, his wearable radio would be actively pinging a satellite, transmitting his elevated vitals and burning a hole through the RF spectrum for the enemy to track. 
-
-Miller’s gear is completely silent. 
-
-> **THE IRON LOGIC: 100% Local Processing**
-> Under the Project Ebony architecture, a soldier’s vitals do not belong to the cloud. They are processed entirely on a localized, heavily encrypted ARM-based wearable console bound to a physical TPM 2.0 chip. The onboard AI analyzes this data locally, only breaking radio silence if a critical threshold is crossed. The soldier maintains absolute RF discipline and stays entirely invisible to enemy electronic warfare.
+| Term | Definition | Context |
+| :--- | :--- | :--- |
+| **ACARS** | Aircraft Communications Addressing and Reporting System | A digital datalink system for transmission of short messages between aircraft and ground stations; historically unencrypted. |
+| **AFDX** | Avionics Full-Duplex Switched Ethernet | Standardized as ARINC 664 Part 7. A deterministic, highly reliable Ethernet protocol used in modern aircraft (e.g., A380, B787). |
+| **ARINC 429** | Legacy Avionics Bus | A two-wire, point-to-point data bus standard heavily utilized for critical sensors (Pitot tubes, Gyros). Transmits in 32-bit words. |
+| **BAG** | Bandwidth Allocation Gap | The minimum mathematical time interval allowed between two consecutive AFDX frames on a Virtual Link. |
+| **VL** | Virtual Link | A logical unidirectional connection over the AFDX physical network, isolating different traffic types. |
 
 ---
 
-## 2. The Ambush: Cognitive Optics
-Miller turns a corner into an open plaza. Two hundred yards away, hidden deep inside the shadows of a second-story window, is an enemy sniper team. 
+## 1. ARINC 429 Galvanic Isolation & Deterministic Parsing
+Critical flight data—like airspeed from the Pitot-static system and attitude from the Inertial Reference Units (IRU)—arrives over simplex, twisted-pair ARINC 429 lines. Because these lines are physically unroutable, they are inherently secure from remote IP attacks, but they are vulnerable to electromagnetic interference (EMI) or sensor degradation.
 
-Miller is human. His eyes are scanning the street-level doorways; he physically does not have the time to consciously register the micro-reflection of the sniper’s optical glint. But he isn't just looking with his biological eyes. The localized Jetson iron integrated into his chest plate is ingesting the visual frames from his helmet optic in real-time. 
+* **Hardware Parity Auditing:** ARINC 429 transmits exactly 32 bits per word. The 32nd bit is the parity bit. The RT-PREEMPT kernel intercepts the word via DMA and mathematically verifies odd parity on the silicon before the data ever reaches the flight envelope protection logic. Let $b_i$ represent the $i$-th bit of the 32-bit word. The hardware computes the parity sum ($P$):
 
-> **THE IRON LOGIC: Automated Threat Propagation**
-> The wearable node acts as an unblinking, cognitive overwatch. Without a single API call, the localized AI scans the raw visual data for thermal anomalies or optical glints. When it registers the sniper scope, the edge engine immediately calculates the physical geometry of the threat and generates a digital targeting marker directly on the iron.
+  $$P = \left( \sum_{i=1}^{31} b_i \right) \pmod 2$$
 
----
-
-## 3. The Handoff: Decentralized Comms
-At the exact millisecond the threat is registered by his chest plate, a digital marker appears on the HUDs of the rest of the squad walking 50 yards behind him. Simultaneously, a deeply encrypted text message from Miller's wife—sent 48 hours ago from the States—finally completes its hops through the battlefield and silently authenticates onto his wrist console. 
-
-> **THE IRON LOGIC: Zero-Trust Pocket Ledgers & Asymmetric Mesh**
-> Ebony uses a frequency-hopping Sub-GHz radio mesh. When a threat is identified, it drops a geo-tagged marker onto the local mesh ledger via an encrypted micro-burst. When a soldier passes within range of another friendly node, their wearable cryptographically authenticates and pulls only the data tagged for their specific keys. Lethal targeting parameters and deeply encrypted personal family updates share the exact same decentralized ledger.
+  If $b_{32} \neq \neg P$ (for odd parity), the physical copper wire has suffered electromagnetic corruption. The word is instantaneously dropped at the boundary.
+* **Sign/Status Matrix (SSM) Bounding:** Bits 30 and 31 contain the SSM, dictating the operational state of the transmitting sensor (Normal, No Computed Data, Functional Test, Failure Warning). The hardware strictly enforces a lockout on any word that does not carry the exact binary signature for "Normal Operation," mathematically blinding the flight computer to degraded sensor hallucination.
 
 ---
 
-## 4. The Firefight: Dynamic Redundancy
-The squad reacts to the silent HUD marker instantly. They lay down heavy suppressive fire, but the enemy has a mounted heavy machine gun. 
+## 2. AFDX Virtual Link (VL) Fencing & Anti-Spoofing
+Modern aircraft use AFDX to route heavy telemetry. Because AFDX is based on standard Ethernet (IEEE 802.3), it is a prime target for adversarial packet flooding if the ground-to-air gateway is compromised. The aircraft must mathematically restrict bandwidth.
 
-Concrete explodes next to Miller's head. As he dives behind a shattered vehicle, jagged shrapnel strikes his chest plate. It doesn't penetrate the Kevlar, but the kinetic impact shatters his primary biometric heart-rate sensor. In a centralized system, a shattered sensor triggers a cascade of error codes. Miller’s system adapts. 
+* **BAG Timer Calculus:** To prevent network saturation, AFDX relies on Virtual Links (VLs), each assigned a strict Bandwidth Allocation Gap (BAG) ranging from 1 to 128 milliseconds. Let $S_{max}$ be the maximum allowed frame size (in bytes), and let the transmission speed be constant. The absolute maximum bandwidth allocated to a specific flight subsystem ($BW_{VL}$) is strictly enforced by the physical switch fabric:
 
-> **THE IRON LOGIC: The Sensor Failure Protocol**
-> If a primary sensor takes physical damage, the local node seamlessly renegotiates its internal data path, pulling secondary inputs—like sustained movement speed from the accelerometer and breathing rates from the tactical mic—to mathematically approximate the missing data natively on the iron. 
+  $$BW_{VL} = \frac{S_{max}}{BAG}$$
 
----
+* **Silicon Traffic Policing:** The Sovereign Edge Node actively polices the VL handling external ground comms. Let $T_n$ be the arrival timestamp of the current frame, and $T_{n-1}$ be the timestamp of the previous frame. The kernel evaluates the arrival delta against the defined BAG:
 
-## 5. The Capture: Hardware Tamper Response
-An enemy RPG detonates against Miller's cover. The concussive wave knocks him unconscious, and the floor gives way, dropping him into subterranean maintenance tunnels. He is separated from the squad. 
+  $$T_n - T_{n-1} < BAG - \tau_{jitter}$$
 
-Twenty minutes later, Miller wakes up. His hands are zip-tied behind his back in a dark concrete basement. Two enemy SIGINT officers have stripped the Project Ebony node off his armor. They connect it to their own laptops, preparing to extract the cryptographic keys and the squad's mesh ledger. 
-
-They think they have a goldmine. They actually have a bomb.
-
-> **THE IRON LOGIC: Physical Tamper Response & Zeroization**
-> The moment the physical casing seal is broken, the hardware’s intrusion sensors trigger a localized interrupt. The onboard TPM 2.0 chip instantly executes a cryptographic zeroization protocol. It permanently erases the LUKS2 decryption keys from the silicon. The solid-state drive is instantly converted into a block of randomized, unbreakable static. 
-
-The enemy officers stare in frustration as the terminal goes permanently black. They cannot track the squad. They cannot read the mesh ledger. But they don't realize the hardware had one final protocol to execute before it died.
+  *(Where $\tau_{jitter}$ is the allowable hardware jitter).* If a compromised SATCOM gateway attempts to flood the internal avionics network, the mathematical inequality triggers immediately. The AFDX switch natively drops the offending frames, severing the ground-link and isolating the flight controls.
 
 ---
 
-## 6. The Dead Man's Whisper: Ionospheric Handoff
-In the exact millisecond before the TPM chip zeroized the primary drive, it initiated the "Dead Man's Whisper" protocol. 
+## 3. The Raw Code: ARINC 429 Ingestion & AFDX Boundary Enforcement
+This is the bare-metal reality of a sovereign flight deck. The kernel evaluates the legacy parity math, polices the modern Ethernet gaps, and cuts the cloud link instantly if the constraints are violated in pure C space.
 
-Because the adversary's EW blanket is jamming all local line-of-sight radios and GPS satellites, Project Ebony abandons digital networks entirely and utilizes planetary physics. 
+```c
+#include <linux/types.h>
+#include <linux/time.h>
 
-> **THE IRON LOGIC: Over-The-Horizon (OTH) Ionospheric Bounce**
-> The zeroized node offloads a heavily compressed, 256-bit encrypted coordinate packet to a secondary, high-frequency (HF) analog micro-transmitter woven into the shoulder strap of Miller's carrier. The transmitter fires a high-powered RF spike straight up into the sky. It bypasses the local jammers, hits the Earth's ionosphere 100 miles up, and bounces back down like a mirror, raining the encrypted coordinates over a 300-mile radius to any listening Project Ebony node.
+// RT-PREEMPT Aerospace Isolation Loop (Pure C Kernel Space)
 
----
+// 1. ARINC 429 Parity & SSM Validation
+bool ingest_arinc429_word(u32 raw_arinc_word, float* extracted_telemetry) {
+    
+    // Mathematically evaluate Odd Parity (Bit 32)
+    u32 parity_bit = (raw_arinc_word >> 31) & 0x01;
+    u32 computed_parity = calculate_hardware_parity(raw_arinc_word & 0x7FFFFFFF);
+    
+    if (parity_bit == computed_parity) {
+        log_hardware_fault("WARNING: ARINC429_PARITY_FAILURE. EMI DETECTED.");
+        return false;
+    }
 
-## 7. The Recovery: The Un-Killable Collective
-Three miles away, the squad's medic is looking at his wrist console. A massive, encrypted HF packet just washed over his mesh ledger from the sky. The local Jetson iron decrypts it instantly. 
+    // Evaluate the Sign/Status Matrix (Bits 30-31)
+    u32 ssm = (raw_arinc_word >> 29) & 0x03;
+    if (ssm != ARINC_SSM_NORMAL_OPERATION) {
+        log_hardware_fault("WARNING: SENSOR_DEGRADATION_FLAGGED. IGNORING DATA.");
+        return false;
+    }
 
-Miller’s exact subterranean coordinates map onto their HUDs. 
+    // Word is mathematically sound. Extract the 19-bit payload (Bits 11-29).
+    *extracted_telemetry = decode_bvr_to_float(raw_arinc_word);
+    return true;
+}
 
-The enemy SIGINT officers are still yelling at their black screens, trying to figure out why the drive wiped itself, when the reinforced basement door is violently blown off its hinges. The squad breaches the room in perfect synchronization, guided by the local mesh. The officers are neutralized before they can draw their weapons. 
+// 2. AFDX Virtual Link Fencing (BAG Policing)
+bool police_afdx_virtual_link(u16 virtual_link_id, u64 current_frame_timestamp_ns) {
+    
+    u64 last_timestamp_ns = get_vl_previous_timestamp(virtual_link_id);
+    u64 time_delta_ns = current_frame_timestamp_ns - last_timestamp_ns;
+    
+    u64 assigned_bag_ns = lookup_vl_bag_allocation(virtual_link_id);
 
-The medic cuts Miller's zip-ties. Miller checks his wrist console—the screen is dead, the keys are zeroized, and the enemy got absolutely nothing. But the hardware did its job. 
+    // Evaluate frame arrival against the deterministic Bandwidth Allocation Gap
+    if (time_delta_ns < (assigned_bag_ns - AFDX_ALLOWED_JITTER_NS)) {
+        
+        // FATAL: The data rate has mathematically exceeded the hardware allocation.
+        // A potential packet-flooding attack or network loop is occurring.
+        log_hardware_fault("FATAL: AFDX_BAG_VIOLATION. SATURATION ATTACK DETECTED.");
+        
+        // 3. Autonomous Uplink Severance
+        // If the violating link is the SATCOM/Ground gateway, sever it completely.
+        if (virtual_link_id == VL_EXTERNAL_GATEWAY) {
+            write_physical_register(SATCOM_UPLINK_RELAY_ADDR, 0x00); // DROP CLOUD CONNECTION
+            log_hardware_fault("AIRCRAFT HAS ENTERED FULL SOVEREIGN ISOLATION.");
+        }
+        
+        return false; // Drop the malicious frame at the silicon switch level
+    }
 
-We are replacing fragile tethers with un-bypassable, edge-enforced sovereignty. The soldier is no longer a liability waiting on server approval. Their hardware fights just as hard in the interrogation room as it does in the trenches, and when all else fails, it uses the Earth's atmosphere to bring them home.
-
----
-
-## Next Week | Chapter 23 Teaser: System Blackout in the Cockpit
-We have proven how Project Ebony secures the soldier on the ground and the swarm in the air. But centralized cloud dependency isn’t just a military vulnerability—it is the single greatest point of failure in commercial aviation. 
-
-Imagine a commercial airliner crossing the Atlantic at 35,000 feet. Suddenly, a catastrophic global cloud outage or a targeted cyber-strike knocks out the airline's centralized flight tracking, weather prediction servers, and digital logbooks. Under the current paradigm, the entire fleet is instantly grounded, transponders go blind to traffic control, and pilots are flying into turbulent weather patterns completely deaf and blind to real-time updates.
-
-Chapter 23 is bringing sovereignty to the skies. We are introducing the **Sovereign Flight Perimeter**. We will detail how individual aircraft cabins use local, hardened edge iron to process flight telemetry, cabin pressure anomalies, and turbulence vectors 100% locally without a single byte of data ever touching a terrestrial corporate server.
+    // Frame arrival is valid and deterministic. Update hardware tracker.
+    update_vl_timestamp(virtual_link_id, current_frame_timestamp_ns);
+    return true;
+}
