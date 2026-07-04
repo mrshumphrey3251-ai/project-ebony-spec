@@ -1,10 +1,25 @@
-# Asset Recovery & Re-Provisioning Protocol Specification
+# ASSET_RECOVERY: Hardware Re-Provisioning & Cryptographic Convergence
 
-This document defines the cryptographic handshake and safe physical steps required to restore an isolated asset to active operational status.
+**Classification:** Gated Engineering Documentation / Cryptographic Recovery Layer
+**Target Architecture:** Air-Gapped Maintenance Console / RT-PREEMPT Kernel
 
-## 1. Manual Cryptographic Handshake
-* **Physical Key Invalidation:** Re-provisioning an asset requires a direct, physical hardware connection via an air-gapped technician console utilizing an authenticated master key asset.
-* **TPM 2.0 State Resealing:** Generates fresh cryptographic key blocks and seals them natively inside the local Trusted Platform Module after verifying core hardware integrity.
+This specification dictates the strictly physical, bare-metal protocols required to restore a bricked, compromised, or isolated node to active operational status. Remote, software-only recovery is disabled at the hardware level to prevent wide-area network (WAN) exploitation.
 
-## 2. State Convergence Verification
-* The recovered asset must run a full hardware self-test routine and successfully complete a read-only telemetry sync loop with adjacent mesh nodes before it is authorized to rejoin the control network.
+## 1. The Air-Gapped Maintenance Handshake
+Re-provisioning an asset requires localized, physical intervention. The node automatically drops all incoming remote TCP/IP recovery attempts.
+
+* **Physical Port Isolation:** Standard USB and Ethernet debug interfaces are disabled by the U-Boot bootloader. Interfacing requires a direct RS-422 serial connection via a dedicated, tamper-evident maintenance header on the motherboard.
+* **ML-DSA-85 Token Validation:** The technician must present a physical hardware token via the maintenance console containing a highly restricted ML-DSA-85 cryptographic signature. The runtime validates this signature directly against the operator public keys permanently burned into the hardware eFuses (as defined in `SECURE_BOOT.md`).
+
+## 2. TPM 2.0 State Resealing
+If the asset previously triggered an active tamper response (see `TAMPER_RESPONSE.md`), the TPM 2.0 secure storage index is mathematically locked.
+
+* **Hardware Integrity Verification:** The maintenance console initiates a low-level hardware scrub, validating memory controller integrity, eFuse status, and chassis continuity loops to ensure the physical breach has been sealed.
+* **Cryptographic Baseline Reset:** Upon successful hardware validation, the technician console generates fresh session keys, recalculates the software baseline hashes, and reseals the LUKS2 decryption keys back into the TPM’s Platform Configuration Registers (PCRs 0, 4, 5, and 7).
+
+## 3. Read-Only Quarantine & State Convergence
+Once cryptographic trust is restored, the asset does not immediately regain physical control of the machinery. It must first synchronize with the decentralized mesh.
+
+* **Passive Sub-GHz Sync:** The node boots into a strictly restricted "Quarantine" state. The solid-state relays (SSRs) controlling the hydraulic pilot valves remain mechanically severed. The node activates its radio in a read-only mode to passively ingest FlatBuffer telemetry from adjacent mesh nodes.
+* **CRDT Merkle Tree Rebuild:** The recovered asset executes the mathematical conflict resolution logic (`CRDT_MERGE_MECHANIC.md`), sequentially rebuilding its localized state ledger.
+* **Operational Handoff:** The RT-PREEMPT kernel only restores hold-voltage to the hydraulic relays *after* the local state hash perfectly matches the consensus root hash of the physical mesh fleet.
