@@ -1,4 +1,4 @@
-# THE_SOVEREIGN_FLIGHT_PERIMETER: High-Altitude Edge Compute & Kinematic Mesh
+# SOVEREIGN_FLIGHT_PERIMETER: High-Altitude Edge Compute & Kinematic Mesh
 
 **Document Version:** 1.0.4 (2026 Release Track)
 **Classification:** Gated Engineering Documentation / Aviation Autonomy Layer
