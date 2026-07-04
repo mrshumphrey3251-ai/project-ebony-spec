@@ -1,4 +1,25 @@
-# Project Ebony: Secure Boot & Hardware Root of Trust Specification
+# SECURE_BOOT: Hardware Root of Trust & Cryptographic Bootchain Specification
+
+**Classification:** Gated Engineering Documentation / Cryptographic Bedrock
+**Target Architecture:** NVIDIA Jetson Orin NX (ARM64) / FIPS-Compliant Offline Nodes
+
+This specification defines the multi-stage hardware verification sequences, cryptographic partition validation, and TPM-bound measurement routines required for first-stage execution. Project Ebony rejects software-only security paradigms; absolute operational sovereignty requires an unbroken chain of trust anchored directly into the physical silicon.
+
+## 1. Cryptographic Chain-of-Trust
+
+The boot sequence follows a strict hardware-gated progression. If any stage fails cryptographic validation, execution halts immediately.
+
+```text
+[Physical Silicon: eFuses] 
+       │ 
+       ▼ (Validates SHA-3072 Signature) 
+[First-Stage Boot ROM & UEFI] 
+       │ 
+       ▼ (Measures Hashes into PCRs) 
+[Discrete Hardware: TPM 2.0] 
+       │ 
+       ▼ (Releases Decryption Key via SPI Bus) 
+[Encrypted Storage: LUKS2 NVMe]# Project Ebony: Secure Boot & Hardware Root of Trust Specification
 Document Version: 1.0.2 (2026 Release Track)
 Classification: Gated Engineering Documentation / Cryptographic Bedrock
 
