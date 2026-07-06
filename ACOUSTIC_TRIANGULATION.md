@@ -1,28 +1,28 @@
-# ACOUSTIC_TRIANGULATION: GPS-Denied TDOA Localization & DSP Matrix
+| KINETIC_GOVERNANCE: The Latency Guillotine & Deterministic Edge State
 
-**Classification:** Gated Engineering Documentation / Sensor Fusion Layer
-**Target Architecture:** I2S MEMS Arrays / RT-PREEMPT Kernel
+Classification: Gated Engineering Documentation / Sovereign Architecture Spec
+Target Architecture: Bare-Metal Microcontrollers / no_std Rust / Sub-GHz Mesh
 
-This specification defines the bare-metal, passive acoustic event localization matrix. In GPS-denied or highly spoofed environments, Project Ebony nodes utilize decentralized hardware microphone arrays and strictly local digital signal processing (DSP) to triangulate kinetic events, mechanical fractures, and structural compromises without external reference beacons.
+This specification defines the strict physical and cryptographic boundaries required to achieve true kinetic autonomy in cyber-physical systems. It formally classifies centralized cloud orchestration (the "Grand Remote") as a critical life-safety vulnerability and establishes the Sovereign Governance Model: compiling deterministic fail-safes directly into the local bare-metal substrate.
 
-## 1. Hardware Ingestion & DMA PDM/I2S Streams
-Standard USB audio interfaces introduce unacceptable bus polling jitter. Acoustic ingestion for kinetic localization must be deterministic.
+The "Grand Remote" Latency Vulnerability & Cloud Tethering
 
-* **Direct Memory Access (DMA):** Multi-channel MEMS microphone arrays are wired directly to the Jetson Orin’s I2S hardware buses. The audio payload bypasses the CPU via DMA, writing directly to pre-allocated zero-copy ring buffers.
-* **Priority Execution:** Native ALSA (Advanced Linux Sound Architecture) drivers are bound to the `SCHED_FIFO` real-time pool (see `SECURE_BOOT.md`). This guarantees that high-frequency acoustic sample rates ($48 \text{ kHz}$ to $96 \text{ kHz}$) are captured synchronously without a single dropped frame, even under maximum Deep Learning Accelerator (DLA) load.
+Legacy enterprise architecture relies on continuous telemetry streaming to centralized external networks for state resolution and actuation approval. In kinetic operations, this introduces an unacceptable, unbounded variable: network latency. Physical mass cannot be governed over a fragile cellular tether. If a cyber-physical asset requires a remote TCP/IP handshake, an API gateway, or a cellular ping to resolve its state or engage a fail-safe, the architecture mathematically defaults to a remote-controlled liability.
 
-## 2. DSP & Time-Difference-of-Arrival (TDOA) Mechanics
-To localize a sound source in physical space, the system relies on exact arrival time deltas across spatially distributed nodes.
+Compiler-Enforced Physics Boundaries
 
-* **Cross-Correlation Matrix:** The localized DSP pipeline isolates target acoustic signatures (e.g., a high-pressure hydraulic line rupture or structural impact) via aggressive bandpass filtering. To find the time delay $\tau$ between two nodes, the system calculates the discrete cross-correlation natively on the edge-silicon:
-  $$R_{xy}[n] = \sum_{m=-\infty}^{\infty} x[m] y[m+n]$$
-* **Hyperbolic Intersection:** The peak of $R_{xy}[n]$ yields the exact Time-Difference-of-Arrival (TDOA). The physical distance difference is calculated as $\Delta d = c \cdot \tau$ (where $c$ is the speed of sound, adjusted dynamically via local ambient temperature and barometric sensors). Grid coordinates are computed by solving the mathematical intersection of the resulting hyperbolas.
+Governance is stripped from the orchestration layer and compiled directly into the binary. Utilizing no_std Rust, absolute physical limitations—such as maximum hydraulic load, thermal thresholds, and spatial geofence perimeters—are hardcoded into the localized silicon at the extreme edge. There is zero runtime negotiation with external servers. The deterministic logic is bound purely by the clock speed of the local processor, ensuring execution within a highly constrained Δt without external polling.
 
-## 3. Mesh-Distributed Localization
-A single node cannot triangulate an event in 3D space alone. The localization matrix is fundamentally decentralized across the physical fleet.
+The Latency Guillotine & Mechanical Abort Protocols
 
-* **Micro-Second Synchronization:** Accurate TDOA requires absolute time synchronization across fractured fleets. Nodes sync their internal hardware clocks via sub-GHz mesh gossiping, achieving $< 10 \text{ \mu s}$ variance.
-* **FlatBuffer Telemetry:** Instead of transmitting heavy raw audio files, a node simply broadcasts the compressed acoustic signature hash and its exact microsecond timestamp via fixed-width payloads (see `FLATBUFFER_SERIALIZATION.md`). Adjacent nodes cross-reference this timestamp with their own internal captures to complete the hyperbolic geometry offline.
+All localized actuators must implement a deterministic Latency Guillotine. The internal state engine continuously evaluates sensor telemetry deltas. If the discrepancy between the expected state matrix and actual sensor ingestion exceeds the strict sub-millisecond safety threshold (t 
+delta
+​
+ >t 
+max_latency
+​
+ ), the software automatically triggers a hardware interrupt. This bypasses all logical decision trees to instantly engage mechanical aborts—such as dropping hydraulic pressure or locking physical brakes—with absolute zero cloud dependency.
 
-## 4. Adaptive Ego-Noise Cancellation
-Heavy industrial machinery generates massive localized acoustic interference. The RT-PREEMPT kernel pipes raw RPM, hydraulic pressure, and track-speed telemetry directly from the J1939 CAN bus into an adaptive noise cancellation filter. The node dynamically subtracts its own mechanical baseline from the I2S stream in real-time, preventing its own actuator noise from blinding the TDOA matrix.
+Air-Gapped State Resolution via CRDTs
+
+Multi-asset kinetic coordination demands completely localized orchestration. Assets communicate state mutations across isolated, Sub-GHz mesh networks. State consensus is resolved locally using Conflict-free Replicated Data Types (CRDTs). This guarantees that a fractured fleet mathematically converges to an identical, eventually consistent map of the physical environment, maintaining operational determinism even in total isolation from the global internet.
