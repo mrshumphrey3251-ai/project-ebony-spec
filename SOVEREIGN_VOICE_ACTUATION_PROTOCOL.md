@@ -32,3 +32,7 @@ To ensure the edge compute node operates with absolute determinism, the sovereig
 * **State 1 (The Handshake):** The master loop halts and listens exclusively for the offline cryptographic/biometric payload from the localized interface node. 
 * **State 2 (The Sensory Loop):** Only after the biometric firewall is cleared does the system advance into the infinite sensory loop, simultaneously opening the audio mesh and listening for the physical Push-To-Talk (PTT) interrupt required for NLP translation. 
 * **Failure State:** If authentication fails or the NLP service crashes, the execution loop immediately terminates, dropping GPIO voltage and instantly returning the heavy iron to its mechanical manual override defaults.
+## 8. Network Topology Trade-Offs for Air-Gapped Authentication
+Securing the biometric handshake across a localized, dead-router mesh presents two distinct topological paths:
+* **Browser-Based (HTTP/REST):** Offers universal device accessibility and rapid deployment, but introduces severe friction with modern browser sandboxing (WebAuthn requires HTTPS, complicating offline PKI infrastructure).
+* **Native Application (TCP Sockets):** Requires managing dual codebases (Compute Node + Interface Node) but provides unfettered, native access to hardware biometric scanners and localized wearable mesh networks without requiring external certificate validation.
