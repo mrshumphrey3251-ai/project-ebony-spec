@@ -26,3 +26,9 @@ Deploying bare-metal compute (NVIDIA Jetson) into heavy agricultural environment
 * **Faraday Mitigation:** Edge compute housed in metallic enclosures must utilize decoupled, exterior-mounted antennas to preserve the isolated local Wi-Fi mesh. 
 * **Kinetic Isolation:** To survive unsprung kinetic shock from off-road operation, all silicon and inverter hardware must be mechanically decoupled from the chassis using internal elastomeric shock-mounts.
 * **The Bulkhead Principle:** Environmental enclosures must be physically segregated. A sealed, thermally managed "Clean Room" for compute operations is strictly divided via a physical bulkhead from any mechanical utility or analog payload space to prevent moisture or conductive debris contamination.
+## 7. Chronological Execution & State Management
+To ensure the edge compute node operates with absolute determinism, the sovereign software stack runs on a strict, chronological execution loop built in memory-safe Rust. The software states are sequenced as follows:
+* **State 0 (Boot & Lockdown):** Upon receiving power, the execution loop instantly defaults all digital GPIO output pins to a "Low" (Normally Closed) state, mathematically ensuring the mechanical relay cascade remains physically locked to manual control.
+* **State 1 (The Handshake):** The master loop halts and listens exclusively for the offline cryptographic/biometric payload from the localized interface node. 
+* **State 2 (The Sensory Loop):** Only after the biometric firewall is cleared does the system advance into the infinite sensory loop, simultaneously opening the audio mesh and listening for the physical Push-To-Talk (PTT) interrupt required for NLP translation. 
+* **Failure State:** If authentication fails or the NLP service crashes, the execution loop immediately terminates, dropping GPIO voltage and instantly returning the heavy iron to its mechanical manual override defaults.
