@@ -36,3 +36,7 @@ To ensure the edge compute node operates with absolute determinism, the sovereig
 Securing the biometric handshake across a localized, dead-router mesh presents two distinct topological paths:
 * **Browser-Based (HTTP/REST):** Offers universal device accessibility and rapid deployment, but introduces severe friction with modern browser sandboxing (WebAuthn requires HTTPS, complicating offline PKI infrastructure).
 * **Native Application (TCP Sockets):** Requires managing dual codebases (Compute Node + Interface Node) but provides unfettered, native access to hardware biometric scanners and localized wearable mesh networks without requiring external certificate validation.
+## 9. Scalability Matrix: Preparing for Edge-ML and AR/VR
+The sovereign interface node must act as more than a mere authentication gate; it must serve as the localized data-harvesting bridge for future spatial computing.
+* **Telemetry & Training:** Native application architecture ensures background sensor harvesting (IMU/GPS) remains active without browser-level battery throttling, creating high-fidelity offline datasets for future localized Machine Learning (ML) training.
+* **Spatial Rendering (AR/VR):** Utilizing a compiled native application ensures bare-metal access to the interface node's GPU and AR frameworks, bypassing the latency and cloud-dependency inherent in WebXR protocols.
