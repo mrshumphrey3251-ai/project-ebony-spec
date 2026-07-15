@@ -21,3 +21,8 @@ Software cannot physically stop voltage. To achieve true, unhackable drive-by-wi
 Direct, real-time voice joystick control of 3D aerial assets introduces unacceptable kinetic latency. Therefore, aerial deployment via voice is restricted to **Macro Triggers**. 
 * The edge node translates the voice command and injects a single execution trigger to the isolated flight controller.
 * The flight controller launches a mathematically pre-defined autonomous mission (e.g., perimeter sweep), maintaining absolute safety while completely bypassing the manufacturer's cloud APIs.
+## 6. Environmental Hardening & Kinetic Survivability
+Deploying bare-metal compute (NVIDIA Jetson) into heavy agricultural environments requires rigorous physical protection that does not compromise the RF air-gap or thermal limits.
+* **Faraday Mitigation:** Edge compute housed in metallic enclosures must utilize decoupled, exterior-mounted antennas to preserve the isolated local Wi-Fi mesh. 
+* **Kinetic Isolation:** To survive unsprung kinetic shock from off-road operation, all silicon and inverter hardware must be mechanically decoupled from the chassis using internal elastomeric shock-mounts.
+* **The Bulkhead Principle:** Environmental enclosures must be physically segregated. A sealed, thermally managed "Clean Room" for compute operations is strictly divided via a physical bulkhead from any mechanical utility or analog payload space to prevent moisture or conductive debris contamination.
