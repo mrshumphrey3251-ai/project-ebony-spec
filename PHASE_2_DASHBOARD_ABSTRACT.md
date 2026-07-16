@@ -14,7 +14,12 @@ Project Ebony centralizes operational telemetry through a ruggedized, military-g
 
 ## 2. KINETIC DECOUPLING (REDACTED)
 * **Architecture:** To ensure maximum safety in high-vibration agricultural environments, the system strictly separates macroscopic decision-making from microscopic kinetic actuation.
-* **Capability:** Capacitive touchscreens are never utilized for direct steering or throttle control. All immediate kinetic actuation is governed by tactile hardware interrupts (Push-To-Talk NLP) or parallel analog overrides, ensuring absolute reliability regardless of environmental interference or operator glove usage.
+* **Capability:** Capacitive touchscreens are never utilized for direct steering or throttle control. All immediate kinetic actuation is governed by tactile hardware interrupts (Push-To-Talk NLP) or parallel analog overrides, ensuring absolute reliability regardless of environmental interference or operator glove usage.### Deterministic UX & State Rendering
+
+To ensure the operator's digital reality perfectly mirrors the physical iron, the Tablet HMI employs strict state-rendering protocols.
+
+* **Transmission Blocking:** Once a kinetic command is initiated by the operator, the HMI locks the execution interface. The UI will not accept secondary inputs until the initial TCP socket successfully closes or triggers the 2000ms timeout threshold, preventing network flooding.
+* **Cryptographic State Confirmation:** The UI state (e.g., displaying a relay as "Active") will never update based solely on user intent. The visual state only changes after the interface receives the strict cryptographic `ACK` receipt confirming physical voltage has shifted at the edge node.
 
 ---
 **[END OF ABSTRACT - INTERFACE SCHEMATICS RESTRICTED]**
