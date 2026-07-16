@@ -1,0 +1,40 @@
+name: Sovereign Traffic Logger
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Executes automatically every Sunday at midnight
+  workflow_dispatch: # Allows you to manually trigger it right now
+
+jobs:
+  log-traffic:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Fetch Traffic Data via API
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p .traffic_logs
+          DATE=$(date +'%Y-%m-%d')
+          
+          # Extract Views
+          curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/traffic/views > .traffic_logs/views_$DATE.json
+          
+          # Extract Clones
+          curl -s -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/traffic/clones > .traffic_logs/clones_$DATE.json
+
+      - name: Commit and Push Data to Vault
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Sovereign Auto-Logger"
+          git add .traffic_logs/
+          git commit -m "telemetry: log repository traffic data for $DATE" || echo "No changes to commit"
+          git push
