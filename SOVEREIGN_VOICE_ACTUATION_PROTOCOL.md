@@ -44,3 +44,7 @@ The sovereign interface node must act as more than a mere authentication gate; i
 To guarantee forward and backward compatibility across all current and future hardware nodes (Tablets, Smartwatches, AR/VR Headsets), the compute node strictly enforces a Modular Interface Contract.
 * **Agnostic Ingestion:** The edge compute node (Jetson Orin) does not require knowledge of the originating device's operating system. It exclusively ingests universally standardized, serialized JSON payloads over a secure TCP socket.
 * **Extensible Schema:** All incoming packets feature a static, load-bearing header (Timestamp, Device ID, Protocol Version) and a dynamic payload block. This ensures that an Authentication packet transmitted in Phase 1 utilizes the exact same digital chassis as a spatial telemetry packet transmitted in Phase 3, requiring zero retroactive modifications to the core bare-metal execution loop.
+## 11. The Tactical Command Dictionary
+The Interface Node (Android) utilizes a tactical command grid rather than a terminal interface to minimize operator friction in the field. The core command dictionary encompasses:
+* **State Controls:** System Arming, Voice Loop Engagement, and Emergency Manual Override (Hardware Disconnect).
+* **Pre-Flight Diagnostics:** Network Latency Ping, Sequential Relay Cascade Testing (Audible Verification), and Thermal/Telemetry Polling.
