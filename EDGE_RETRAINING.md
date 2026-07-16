@@ -21,3 +21,14 @@ A neural network tuned too aggressively on a localized anomaly may suffer from "
 * **Loss Function Thresholds:** The node computes the aggregate cross-entropy loss ($\mathcal{L}$) of the candidate model natively:
   $$\mathcal{L} = -\frac{1}{N} \sum_{i=1}^{N} \sum_{c=1}^{C} y_{i,c} \log(\hat{y}_{i,c})$$
   *(Where $y_{i,c}$ is the verified ground truth, and $\hat{y}_{i,c}$ is the candidate's prediction).* * **Operational Promotion:** The candidate model is only authorized for hot-swapping into the active production runtime if $\mathcal{L}$ mathematically falls below the hardcoded safety boundary ($\mathcal{L} \le \tau_{safe}$) and proves it has retained perfect classification accuracy on the foundational $D_{frozen}$ matrix. If it fails, the new weights are instantly purged from volatile memory.
+# KINETIC GOVERNANCE: Asynchronous State Consolidation (Offline Dreaming)
+
+Standard cloud-based AI agents suffer from critical context leakage and memory bloat over extended runtimes. In heavy industry, memory bloat crashes the RT-PREEMPT kernel and causes multi-ton machinery to operate blindly.
+
+To achieve continuous, localized intelligence without internet connectivity, Project Ebony employs a strictly decoupled **Dual-Loop Memory Architecture**.
+
+### The Architecture:
+* **The Kinetic Loop (Awake):** During active operations, the edge node acts strictly deterministically. Raw telemetry and machine anomalies are logged to a volatile, bound cache. The execution engine does not spend compute cycles "thinking" about past errors while moving physical mass.
+* **The Consolidation Loop (Dreaming):** Triggered strictly by machine idle states (e.g., battery charging, engine off), a low-priority background Rust daemon wakes up. It ingests the bloated daily logs, leverages the localized LLM to condense the anomalies into highly compressed `.md` instruction files, and permanently purges the raw data. 
+
+**The Result:** The system "prompts itself" offline, actively rewriting its own operational guardrails for the next shift without ever exposing its context window to a centralized server.
