@@ -20,6 +20,17 @@ To preserve the physical integrity of salvaged heavy iron and protect onboard pa
 ## 3. DETERMINISTIC BRAKING & EMERGENCY INTERRUPTS (REDACTED)
 * **Execution:** While acceleration is governed by software slewing, deceleration via the operator's Push-To-Talk (PTT) release bypasses all smoothing protocols. 
 * **Capability:** The system achieves near-instantaneous voltage zeroing (Deadzone reset), forcing the heavy chassis electromagnetic brakes to engage with zero logic latency. 
+### Edge-Native Deterministic Listener (Abstract)
+The Evont Agentic Engine utilizes a strictly typed, memory-safe TCP listener bound exclusively to the localized air-gapped subnet. 
 
+**Kinetic Execution Schema:**
+All hardware actuation commands must strictly adhere to the following JSON structure. Malformed payloads or invalid tokens result in an immediate socket drop.
+```json
+{
+  "auth_token": "[REDACTED_OFFLINE_KEY]",
+  "command": "ACTIVATE_RELAY",
+  "target_pin": 17,
+  "value": 1
+}
 ---
 **[END OF ABSTRACT - EXECUTION MATH RESTRICTED]**
