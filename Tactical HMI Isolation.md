@@ -1,7 +1,7 @@
 # KINETIC_GOVERNANCE: Tactical HMI & Memory Isolation Specification
 
-**Classification:** Project Ebony / Human-Machine Boundary Layer  
-**Target Architecture:** Dart/Flutter / RT-PREEMPT / UNIX Domain Sockets / Asynchronous IPC  
+**Classification:** Project Ebony / Human-Machine Boundary Layer
+**Target Architecture:** Dart/Flutter / RT-PREEMPT / UNIX Domain Sockets / Asynchronous IPC
 
 This specification handles the strict memory boundaries and Inter-Process Communication (IPC) layers between the tactical operator's localized Dart/Flutter UI and the bare-metal C++ kinetic engine. The Flutter rendering tree utilizes a Garbage Collector (GC). Garbage collection introduces unpredictable, non-deterministic execution pauses. If the RT-PREEMPT kernel waits for the UI to clear a memory heap, the physical asset will crash. The tactical wearable must render high-contrast spatial awareness to the operator without ever possessing the mathematical capability to block the underlying physical control loops.
 
@@ -14,21 +14,19 @@ This specification handles the strict memory boundaries and Inter-Process Commun
 | **IPC** | Inter-Process Communication | Mechanisms that allow distinct software processes to share data and synchronize. |
 | **UDS** | UNIX Domain Socket | A data communications endpoint for exchanging data between processes executing on the same host operating system. |
 
----
-
 ## 1. Asynchronous IPC & Garbage Collection Decoupling
+
 The rendering engine and the physics engine must exist in completely separate realities, touching only briefly across a localized, non-blocking bridge.
 
-* **Strict Memory Isolation:** The Dart runtime and the C++ kernel execute in entirely separate Linux `cgroups`. The C++ kernel is bound to physical RAM (`mlockall`), while the Dart UI operates in a volatile, bounded user-space heap. 
+* **Strict Memory Isolation:** The Dart runtime and the C++ kernel execute in entirely separate Linux cgroups. The C++ kernel is bound to physical RAM (`mlockall`), while the Dart UI operates in a volatile, bounded user-space heap.
 * **Non-Blocking UDS Polling:** Data is passed via UNIX Domain Sockets (UDS) using strictly non-blocking I/O. Let $T_{render}$ be the time required for the UI to draw a frame, $T_{gc}$ be the unpredictable garbage collection pause, and $T_{kinetic}$ be the strict physical deadline of the machine. The mathematical isolation guarantees:
 
-  $$T_{kinetic} \ll (T_{render} + T_{gc})$$
+$$T_{kinetic} \ll (T_{render} + T_{gc})$$
 
-  When the C++ kernel needs to update the operator's HUD with a spatial anomaly, it fires the binary payload into the UDS buffer and instantly abandons it. It does not wait for an acknowledgment. If the UI crashes, the socket drops the frame, and the kinetic machine continues fighting unabated.
-
----
+When the C++ kernel needs to update the operator's HUD with a spatial anomaly, it fires the binary payload into the UDS buffer and instantly abandons it. It does not wait for an acknowledgment. If the UI crashes, the socket drops the frame, and the kinetic machine continues fighting unabated.
 
 ## 2. The Raw Code: Non-Blocking HMI Boundary
+
 This is the bare-metal reality of safe user interfaces. The C kernel polls the hardware, blasts the visual data to the socket, and moves on before the UI can drag it down.
 
 ```c
