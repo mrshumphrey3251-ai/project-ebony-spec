@@ -42,5 +42,9 @@ Physical safety supersedes software instruction. If the cryptographic perimeter 
 
 * **Relay Severance:** The core engine drops the voltage on the localized solid-state relays (SSRs).
 * **Spring-Return Immobilization:** Without active hold voltage, the IP69K linear actuators and hydraulic pilot valves immediately snap to their mechanical spring-return zero positions, locking the machinery's brakes and dropping all implements to the ground.
+### Edge-Native Kernel Intercept (Phase 2)
 
+To secure the localized mesh topology against internal bad actors or compromised secondary devices, the core processing node utilizes a two-tiered architectural intercept protocol.
 
+* **Layer 1 (Network Bounding):** The primary execution runtime enforces a strict, hardcoded IP Whitelist at the socket level. Sockets originating from unregistered MAC/IP addresses are severed before thread allocation occurs, protecting the runtime from buffer overflow attacks or resource exhaustion on the local mesh.
+* **Layer 2 (Application Gate):** Packets that pass the network bounding layer must then execute the cryptographic token handshake and conform perfectly to the immutable JSON schema before physical hardware manipulation is authorized.
