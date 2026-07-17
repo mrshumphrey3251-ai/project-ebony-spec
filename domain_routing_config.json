@@ -1,0 +1,26 @@
+{
+  "architecture_scope": "universal_chassis_agnostic",
+  "active_domains": {
+    "domain_alpha": {
+      "status": "active",
+      "kinetic_profile": "Profile-A",
+      "operator_ui_mode": "interface_1"
+    },
+    "domain_beta": {
+      "status": "staged",
+      "kinetic_profile": "Profile-B",
+      "operator_ui_mode": "interface_2"
+    },
+    "domain_gamma": {
+      "status": "staged",
+      "kinetic_profile": "Profile-C",
+      "operator_ui_mode": "interface_3"
+    },
+    "domain_delta": {
+      "status": "active",
+      "kinetic_profile": "Profile-D",
+      "operator_ui_mode": "interface_4"
+    }
+  },
+  "enforce_strict_isolation": true
+}
