@@ -1,10 +1,10 @@
 # EXECUTIVE DIRECTIVE: GOOGLE BUSINESS PROFILE CONFIGURATION
-**Location Matrix:** Madill, Johnston County, Oklahoma
+**Location Matrix:** Location-Agnostic / Scalable Deployment
 **Corporate Identity:** Automation Company / Research Institute
-**Operational Mission:** 100% ADA-compliant autonomous veteran infrastructure
+**Operational Mission:** Developing a 200-acre, 100% ADA-compliant autonomous veteran infrastructure
 
 Humphrey Virtual Farms (HVF) engineers sovereign edge-intelligence ecosystems for heavy agriculture and industrial infrastructure. We eliminate cloud dependency, deploying 100% localized, air-gapped SCADA and robotics architectures. 
 
-Our core mission: Building a 100% ADA-compliant autonomous farm for disabled veterans, aged-out foster youth, and vulnerable populations in OK. 
+Our core mission: Developing a 200-acre, 100% ADA-compliant autonomous farm for disabled veterans, aged-out foster youth, and vulnerable populations. 
 
 By leveraging NVIDIA hardware and sub-GHz radio networks, we deliver unmatched resilience in off-grid environments. If you are an investor, strategic partner, or seeking true operational sovereignty, contact us to explore our bare-metal solutions.
