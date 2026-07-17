@@ -1,61 +1,58 @@
-# Operator Terminal Execution Loop (Amended with Biometric Gatekeeper)
-# Core loop for continuous bare-metal command execution
+# Standard Terminal Execution Loop (Amended with Identity Gatekeeper)
+# Core loop for continuous localized command execution
 
 import time
 import operator_interface
 import local_audit_logger
 import offline_nlp_processor
-import kinetic_guillotine_veto
+import standard_guillotine_veto
 import local_biometric_auth
 
 def run_terminal_loop():
-    print("POWERING EDGE NODE...")
+    print("POWERING NODE...")
     
-    # 1. THE BIOMETRIC GATEKEEPER
-    # In live hardware, this ingests data from the physical palm/retina scanner
-    # We require manual hash entry here to simulate the hardware handshake
-    sensor_hash = input("[Aegis Biometric Scanner] Awaiting Operator Palm Print (Enter Hash): ").strip()
+    # 1. THE IDENTITY GATEKEEPER
+    sensor_hash = input("[Scanner Active] Awaiting Identity Hash: ").strip()
     
     if not local_biometric_auth.verify_operator_biometrics(sensor_hash):
-        print("CRITICAL: BIOMETRIC REJECTION. TERMINATING IGNITION SEQUENCE.")
-        return # Hard exit. The terminal will not boot.
+        print("ERROR: IDENTITY REJECTED. TERMINATING SEQUENCE.")
+        return
 
     # 2. TERMINAL INITIALIZATION
-    print("INITIALIZING SOVEREIGN INTEGRATED TERMINAL...")
+    print("INITIALIZING LOCAL INTEGRATED TERMINAL...")
     active_language = operator_interface.execute_local_interface('en')
     
     if not active_language:
-        print("CRITICAL: Terminal initialization failed. Aegis-Override-7 Engaged.")
-        local_audit_logger.secure_log_action("INIT", "FAILED - AEGIS LOCK")
+        print("ERROR: Initialization failed. Standard Override Engaged.")
+        local_audit_logger.secure_log_action("INIT", "FAILED")
         return
 
-    local_audit_logger.secure_log_action("INIT", "SUCCESS - INTEGRATED CORE ACTIVE")
-    print("--- TERMINAL ACTIVE: ACOUSTIC & SPATIAL VETO MONITORING ENABLED ---")
+    local_audit_logger.secure_log_action("INIT", "SUCCESS")
+    print("--- TERMINAL ACTIVE: LOCAL VOICE & SAFETY MONITORING ENABLED ---")
     
     # 3. CONTINUOUS EXECUTION LOOP
     while True:
         try:
-            voice_input = input("\n[Acoustic Stream Active] Speak Command: ").strip()
+            voice_input = input("\n[Local Mic Active] Input Command: ").strip()
             
             if not voice_input:
                 continue
                 
             intended_pwm = offline_nlp_processor.process_acoustic_input(voice_input)
             
-            # Simulated sensor reading at 200cm
-            simulated_sensor_distance_cm = 200.0 
-            final_pwm = kinetic_guillotine_veto.evaluate_spatial_veto(intended_pwm, simulated_sensor_distance_cm)
+            simulated_distance_cm = 200.0
+            final_pwm = standard_guillotine_veto.evaluate_spatial_veto(intended_pwm, simulated_distance_cm)
             
-            print(f"OUTPUT TRACKING: Final Relay Gate Voltage Set To: {final_pwm}%")
+            print(f"OUTPUT: Relay Output Set To: {final_pwm}%")
             
-            if voice_input.lower() == "halt" or voice_input.lower() == "stop":
+            if voice_input.lower() == "stop":
                 break
                 
             time.sleep(0.1)
             
         except KeyboardInterrupt:
-            print("\nTerminal severed. Instantly dropping relays to 0.0%.")
-            local_audit_logger.secure_log_action("SEVER", "DEFAULT HALT")
+            print("\nTerminal offline. Dropping to 0.0%.")
+            local_audit_logger.secure_log_action("OFFLINE", "DEFAULT HALT")
             break
 
 if __name__ == "__main__":
