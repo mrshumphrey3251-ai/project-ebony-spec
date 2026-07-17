@@ -1,0 +1,17 @@
+{
+  "en": {
+    "start": "Operation A",
+    "stop": "Operation B",
+    "status": "Condition 1"
+  },
+  "es": {
+    "start": "Operación A",
+    "stop": "Operación B",
+    "status": "Condición 1"
+  },
+  "fr": {
+    "start": "Opération A",
+    "stop": "Opération B",
+    "status": "Condition 1"
+  }
+}
