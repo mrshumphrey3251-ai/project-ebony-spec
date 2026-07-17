@@ -1,0 +1,7 @@
+{
+  "architecture_mode": "offline_standard",
+  "external_dependency": false,
+  "equipment_designation": "DEVICE-000",
+  "operator_timeout_ms": 3000,
+  "failsafe_protocol": "Standard-Override"
+}
