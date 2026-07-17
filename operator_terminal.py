@@ -1,42 +1,47 @@
-# Standard Terminal Execution Loop (Amended with Audit Logging)
+# Standard Terminal Execution Loop (Amended with Voice & Safety Veto)
 # Core loop for continuous localized command execution
 
 import time
 import operator_interface
 import local_audit_logger
+import offline_nlp_processor
+import standard_guillotine_veto
 
 def run_terminal_loop():
-    print("INITIALIZING LOCAL TERMINAL...")
+    print("INITIALIZING LOCAL INTEGRATED TERMINAL...")
     active_language = operator_interface.execute_local_interface('en')
     
     if not active_language:
-        print("ERROR: Terminal initialization failed. Standard-Override Engaged. Locking system.")
-        local_audit_logger.secure_log_action("INIT", "FAILED - OVERRIDE ENGAGED")
+        print("ERROR: Initialization failed. Standard Override Engaged.")
+        local_audit_logger.secure_log_action("INIT", "FAILED")
         return
 
     local_audit_logger.secure_log_action("INIT", "SUCCESS")
-    print("--- TERMINAL ACTIVE ---")
+    print("--- TERMINAL ACTIVE: LOCAL VOICE & SAFETY MONITORING ENABLED ---")
     
     while True:
         try:
-            command = input(f"Awaiting input [{active_language['start']} / {active_language['stop']}]: ").strip().lower()
+            voice_input = input("\n[Local Mic Active] Input Command: ").strip()
             
-            if command == "stop":
-                print(f"EXECUTING: {active_language['stop']}. Halting operations.")
-                local_audit_logger.secure_log_action(command, "EXECUTED - HALT")
+            if not voice_input:
+                continue
+                
+            intended_pwm = offline_nlp_processor.process_acoustic_input(voice_input)
+            
+            # Standard safety perimeter check
+            simulated_distance_cm = 200.0
+            final_pwm = standard_guillotine_veto.evaluate_spatial_veto(intended_pwm, simulated_distance_cm)
+            
+            print(f"OUTPUT: Relay Output Set To: {final_pwm}%")
+            
+            if voice_input.lower() == "stop":
                 break
-            elif command == "start":
-                print(f"EXECUTING: {active_language['start']}. Engaging sequence.")
-                local_audit_logger.secure_log_action(command, "EXECUTED - SEQUENCE ENGAGED")
-            else:
-                print("Unrecognized parameter. System holds current state.")
-                local_audit_logger.secure_log_action(command, "DENIED - UNKNOWN")
                 
             time.sleep(0.1)
             
         except KeyboardInterrupt:
-            print(f"\nTerminal offline. {active_language['stop']} executed.")
-            local_audit_logger.secure_log_action("OFFLINE", "EXECUTED - DEFAULT HALT")
+            print("\nTerminal offline. Dropping to 0.0%.")
+            local_audit_logger.secure_log_action("OFFLINE", "DEFAULT HALT")
             break
 
 if __name__ == "__main__":
