@@ -1,29 +1,27 @@
-# Project Ebony: Sovereign Biometric Engine
-# Cryptographically validates the operator's biological identity on the bare metal
+# Project Ebony: Local Biometric Authentication
+# Validates operator identity securely on the edge node
 
 import local_audit_logger
 
-# Proprietary configuration for local cryptographic matching
-# In physical deployment, this interfaces with the edge-connected palm/retina scanner
-AUTHORIZED_OPERATOR_HASH = "8f4e_AEGIS_VETERAN_ID_001"
+# Standard configuration for local identity matching
+STANDARD_OPERATOR_HASH = "AUTH_USER_001"
 
 def verify_operator_biometrics(sensor_input_hash):
     """
     Ingests physical sensor data and validates identity locally.
-    Zero cloud identity verification. Zero external database calls.
+    Cloud IAM and external network calls are strictly prohibited.
     """
-    print("BIOMETRIC SCAN INITIATED. Validating operator on local iron...")
+    print("SCAN INITIATED. Validating operator locally...")
     
-    if sensor_input_hash == AUTHORIZED_OPERATOR_HASH:
-        print("IDENTITY CONFIRMED. Operator authorized for kinetic control.")
-        local_audit_logger.secure_log_action("BIOMETRIC_AUTH", "SUCCESS - IDENTITY VERIFIED")
+    if sensor_input_hash == STANDARD_OPERATOR_HASH:
+        print("IDENTITY CONFIRMED. System unlocked.")
+        local_audit_logger.secure_log_action("AUTH", "SUCCESS")
         return True
     else:
-        print("CRITICAL: BIOMETRIC MISMATCH. Unauthorized operator detected.")
-        local_audit_logger.secure_log_action("BIOMETRIC_AUTH", "FAILED - AEGIS LOCKOUT ENGAGED")
+        print("WARNING: IDENTITY MISMATCH. System locked.")
+        local_audit_logger.secure_log_action("AUTH", "FAILED - LOCKOUT")
         return False
 
-# Simulated execution for terminal integration
 if __name__ == "__main__":
-    test_scan = "8f4e_AEGIS_VETERAN_ID_001"
+    test_scan = "AUTH_USER_001"
     verify_operator_biometrics(test_scan)
