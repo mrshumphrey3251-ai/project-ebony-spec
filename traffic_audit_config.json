@@ -1,0 +1,12 @@
+{
+  "monitoring_mode": "active_executive_watch",
+  "clone_alert_threshold": 100,
+  "unauthorized_probe_lockout": true,
+  "alert_routing": "humphreyvirtualfarm@gmail.com",
+  "log_retention_days": 365,
+  "target_assets": [
+    "SOVEREIGN_VOICE_ACTUATION_PROTOCOL.md",
+    "ACCESS_CONTROL.md",
+    "EDGE_RETRAINING.md"
+  ]
+}
