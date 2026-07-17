@@ -1,4 +1,4 @@
-# Standard Terminal Execution Loop (Amended with Mesh Integration)
+# Standard Terminal Execution Loop (Amended with Hardware Actuation)
 # Core loop for continuous localized command execution
 
 import time
@@ -8,6 +8,7 @@ import offline_nlp_processor
 import standard_guillotine_veto
 import local_biometric_auth
 import standard_mesh_node
+import standard_gpio_matrix
 
 def run_terminal_loop():
     print("POWERING NODE...")
@@ -18,7 +19,7 @@ def run_terminal_loop():
         print("ERROR: IDENTITY REJECTED. TERMINATING SEQUENCE.")
         return
 
-    # 2. TERMINAL & MESH INITIALIZATION
+    # 2. TERMINAL, MESH & HARDWARE INITIALIZATION
     print("INITIALIZING LOCAL INTEGRATED TERMINAL...")
     active_language = operator_interface.execute_local_interface('en')
     
@@ -31,8 +32,12 @@ def run_terminal_loop():
         print("ERROR: Mesh Transceiver failed. Asset isolated. Lockout Engaged.")
         return
 
-    local_audit_logger.secure_log_action("INIT", "SUCCESS - MESH ACTIVE")
-    print("--- TERMINAL ACTIVE: LOCAL VOICE, SAFETY, & NETWORK MONITORING ENABLED ---")
+    if not standard_gpio_matrix.initialize_hardware_pins():
+        print("ERROR: Hardware Matrix failed. Relays severed.")
+        return
+
+    local_audit_logger.secure_log_action("INIT", "SUCCESS - FULL INTEGRATION ACTIVE")
+    print("--- TERMINAL ACTIVE: SENSOR & HARDWARE CONTROL ENABLED ---")
     
     # 3. CONTINUOUS EXECUTION LOOP
     while True:
@@ -55,7 +60,9 @@ def run_terminal_loop():
             simulated_distance_cm = 200.0
             final_pwm = standard_guillotine_veto.evaluate_spatial_veto(intended_pwm, simulated_distance_cm)
             
-            print(f"OUTPUT: Relay Output Set To: {final_pwm}%")
+            # Hardware Actuation
+            print(f"OUTPUT: Pushing verified {final_pwm}% to hardware.")
+            standard_gpio_matrix.actuate_iron(final_pwm)
             
             if voice_input.lower() == "stop":
                 break
@@ -63,7 +70,8 @@ def run_terminal_loop():
             time.sleep(0.1)
             
         except KeyboardInterrupt:
-            print("\nTerminal offline. Dropping to 0.0%.")
+            print("\nTerminal offline. Dropping hardware relays to 0.0%.")
+            standard_gpio_matrix.actuate_iron(0.0)
             local_audit_logger.secure_log_action("OFFLINE", "DEFAULT HALT")
             break
 
