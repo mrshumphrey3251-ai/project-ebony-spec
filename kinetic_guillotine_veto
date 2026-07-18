@@ -1,15 +1,1 @@
-# Project Ebony: Standard Guillotine Veto (Redacted)
-# Public blueprint for basic binary spatial hazard evaluation
 
-def evaluate_spatial_veto(intended_pwm, spatial_distance_mm):
-    # Standard static perimeter testing value
-    STANDARD_CRITICAL_ZONE_MM = 300.0
-    
-    if intended_pwm <= 0.0:
-        return intended_pwm
-
-    if spatial_distance_mm <= STANDARD_CRITICAL_ZONE_MM:
-        print("[Veto Engine] Hazard detected. Severing relays.")
-        return 0.0
-    else:
-        return intended_pwm
