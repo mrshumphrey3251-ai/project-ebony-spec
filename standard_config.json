@@ -1,0 +1,7 @@
+{
+  "architecture_mode": "standard_local",
+  "external_dependency": false,
+  "equipment_designation": "STANDARD-UNIT-01",
+  "operator_timeout_ms": 5000,
+  "failsafe_protocol": "Standard-Override-1"
+}
