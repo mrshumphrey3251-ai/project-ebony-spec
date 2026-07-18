@@ -1,8 +1,6 @@
 # Project Ebony: The Sovereign Edge-Intelligence Ecosystem
 
-**CAGE Code:** 1AHA8
-**UEI Number:** S1M4ENLHTDH5
-**Version:** 1.0.0 - Production Alpha: Sovereign Core Infrastructure
+**CAGE Code:** 1AHA8 | **UEI Number:** S1M4ENLHTDH5 | **Version:** 1.0.0 - Production Alpha: Sovereign Core Infrastructure
 
 Ebony is a highly resilient, decentralized, edge-intelligent infrastructure ecosystem designed to manage large-scale kinetic operations in completely disconnected, off-grid, or hostile communications environments.
 
@@ -12,9 +10,9 @@ By unifying all hardware bedrock, software runtimes, sub-GHz communications, and
 
 ## ⚠️ NOTICE: ARCHITECTURAL TOLLBOOTH ACTIVE (July 2026)
 
-To the 1,000+ engineers and operators who have cloned or viewed this repository: The foundational architecture of Project Ebony is proven, and the core cryptographic blueprints remain open for peer review below. 
+To the 1,000+ engineers and operators who have cloned or viewed this repository: The foundational architecture of Project Ebony is proven, and the core cryptographic blueprints remain open for peer review below.
 
-However, **Phase 2 Hardware Integration and Physical Deployment Protocols are now restricted.** The software architecture is useless if it cannot be safely fused to physical hardware. The exact schematics required to deploy this system onto physical SCADA networks, including the Final Edge Node Deployment Keys and Bare-Metal Integration Scripts, have been moved to a private, restricted repository. *(See "Access Protocols" at the bottom of this document to request access).*
+However, Phase 2 Hardware Integration and Physical Deployment Protocols are now restricted. The software architecture is useless if it cannot be safely fused to physical hardware. The exact schematics required to deploy this system onto physical SCADA networks, including the Final Edge Node Deployment Keys and Bare-Metal Integration Scripts, have been moved to a private, restricted repository. *(See "Access Protocols" at the bottom of this document to request access).*
 
 ---
 
@@ -75,15 +73,15 @@ This public repository is divided into discrete, bare-metal specifications defin
 
 ## 🔒 ACCESS PROTOCOLS: The Private Deployment Repository
 
-The mission of Project Ebony is to build a 100% ADA-compliant autonomous farm for disabled veterans, aged-out foster youth, and vulnerable populations. This requires infrastructure that absolutely never fails. 
+The mission of Project Ebony is to build a 100% ADA-compliant autonomous farm for disabled veterans, aged-out foster youth, and vulnerable populations. This requires infrastructure that absolutely never fails.
 
 I am actively looking for serious strategic partners, capital investors, and elite hardware engineers to finalize the physical deployment of this grid. 
 
-If you are actively deploying infrastructure in an agricultural, maritime, or heavy industrial environment, or if you are bringing capital to scale this bare-metal solution, you may request access to the **Private Deployment Repository** (containing the physical wiring schematics, bare-metal integration scripts, and final edge node keys).
+If you are actively deploying infrastructure in an agricultural, maritime, or heavy industrial environment, or if you are bringing capital to scale this bare-metal solution, you may request access to the Private Deployment Repository (containing the physical wiring schematics, bare-metal integration scripts, and final edge node keys).
 
 **To request access:**
-1. Do not ask me to tokenize this or put it on a public blockchain. 
-2. Message me directly on LinkedIn linkedin.com/in/jeffery-humphrey-1671b53b3 or at humphreyvirtualfarm@gmail.com.
-3. State your operational background, what physical hardware you are working with, and exactly why you need the integration keys. 
+1. Do **not** ask me to tokenize this or put it on a public blockchain.
+2. Message me directly on LinkedIn: [linkedin.com/in/jeffery-humphrey-1671b53b3](https://linkedin.com/in/jeffery-humphrey-1671b53b3) or at [humphreyvirtualfarm@gmail.com](mailto:humphreyvirtualfarm@gmail.com).
+3. State your operational background, what physical hardware you are working with, and exactly why you need the integration keys.
 
-The code holds the line. The physical iron requires a partnership.
+**The code holds the line. The physical iron requires a partnership.**
