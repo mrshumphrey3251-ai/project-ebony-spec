@@ -1,44 +1,51 @@
-# Project Ebony: Diagnostic Validation Suite
-# Automated stress-testing for the standard architecture
+# Project Ebony: Standard Operator Terminal (Redacted)
+# Unified terminal loop for public architectural review
 
-import local_biometric_auth
 import offline_nlp_processor
-import standard_mesh_node
 import standard_guillotine_veto
+import local_biometric_auth
+import standard_mesh_node
 import standard_gpio_matrix
+import standard_telemetry_engine
+import standard_audit_logger
 
-def execute_diagnostics():
-    print("=== INITIATING DIAGNOSTIC VALIDATION SUITE ===\n")
+def run_terminal_loop():
+    print("=== POWERING STANDARD EDGE NODE ===")
     
+    # 1. BIOMETRIC HANDSHAKE
+    sensor_hash = input("[Biometric Auth] Input Hash: ").strip()
+    if not local_biometric_auth.verify_operator_biometrics(sensor_hash):
+        print("CRITICAL: REJECTION. TERMINATING IGNITION.")
+        return 
+
+    # 2. SUBSYSTEM ENGAGEMENT
     standard_mesh_node.initialize_mesh_transceiver()
     standard_gpio_matrix.initialize_hardware_pins()
+    print("--- TERMINAL LOGGED IN: SYSTEM ONLINE ---")
+    
+    # 3. CONTINUOUS OVERWATCH
+    print("\n[SYSTEM] Continuous Overwatch Active. Press Ctrl+C to stop.")
+    while True:
+        try:
+            voice_input = input("\n[Acoustic Input] Enter Voice Command: ").strip()
+            intended_pwm = offline_nlp_processor.process_acoustic_input(voice_input)
 
-    print("\n--- TEST 1: UNAUTHORIZED ACCESS ---")
-    auth_result = local_biometric_auth.verify_operator_biometrics("INVALID_USER")
-    print(f"RESULT: Auth Passed? {auth_result} (Expected: False)\n")
+            # Ingest Standard Telemetry
+            radio_dist, sensor_dist = standard_telemetry_engine.poll_standard_sensors()
+            
+            if standard_mesh_node.scan_fleet_proximity(radio_dist):
+                intended_pwm = 0.0
 
-    print("--- TEST 2: NOMINAL OPERATION ---")
-    intended_pwm = offline_nlp_processor.process_acoustic_input("operation a")
-    mesh_veto = standard_mesh_node.scan_fleet_proximity(5000.0)
-    final_pwm = standard_guillotine_veto.evaluate_spatial_veto(intended_pwm if not mesh_veto else 0.0, 500.0)
-    standard_gpio_matrix.actuate_iron(final_pwm)
-    print("RESULT: Nominal Actuation Completed.\n")
-
-    print("--- TEST 3: MESH NETWORK OVERRIDE ---")
-    intended_pwm = offline_nlp_processor.process_acoustic_input("operation a")
-    mesh_veto = standard_mesh_node.scan_fleet_proximity(1000.0) 
-    final_pwm = standard_guillotine_veto.evaluate_spatial_veto(intended_pwm if not mesh_veto else 0.0, 500.0)
-    standard_gpio_matrix.actuate_iron(final_pwm)
-    print("RESULT: Network Override Engaged.\n")
-
-    print("--- TEST 4: LOCAL SPATIAL OVERRIDE ---")
-    intended_pwm = offline_nlp_processor.process_acoustic_input("operation a")
-    mesh_veto = standard_mesh_node.scan_fleet_proximity(5000.0)
-    final_pwm = standard_guillotine_veto.evaluate_spatial_veto(intended_pwm if not mesh_veto else 0.0, 50.0)
-    standard_gpio_matrix.actuate_iron(final_pwm)
-    print("RESULT: Local Override Engaged.\n")
-
-    print("=== DIAGNOSTIC SUITE COMPLETE ===")
+            final_pwm = standard_guillotine_veto.evaluate_spatial_veto(intended_pwm, sensor_dist)
+            standard_gpio_matrix.actuate_iron(final_pwm)
+            
+            # Execute Standard Logging
+            standard_audit_logger.secure_log_action(voice_input, f"PWM: {final_pwm}")
+            
+        except KeyboardInterrupt:
+            break
+            
+    print("\n=== SYSTEM OFFLINE ===")
 
 if __name__ == "__main__":
-    execute_diagnostics()
+    run_terminal_loop()
