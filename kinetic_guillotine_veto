@@ -1,29 +1,15 @@
-# Project Ebony: Spatial Veto Layer
-# Deterministic spatial veto for localized actuation
+# Project Ebony: Standard Guillotine Veto (Redacted)
+# Public blueprint for basic binary spatial hazard evaluation
 
-import local_audit_logger
-
-# Standard perimeter defense metrics
-STANDARD_PERIMETER_CM = 100.0  
-
-def evaluate_spatial_veto(intended_pwm_duty_cycle, sensor_distance_cm):
-    """
-    Intercepts the PWM duty cycle before mechanical execution.
-    Executes a veto if the standard perimeter is breached.
-    """
-    print(f"VETO CHECK: Evaluating intent {intended_pwm_duty_cycle}% against spatial data: {sensor_distance_cm}cm")
+def evaluate_spatial_veto(intended_pwm, spatial_distance_mm):
+    # Standard static perimeter testing value
+    STANDARD_CRITICAL_ZONE_MM = 300.0
     
-    if sensor_distance_cm <= STANDARD_PERIMETER_CM:
-        # Override engaged.
-        print(f"WARNING: Perimeter breached at {sensor_distance_cm}cm. OVERRIDE ENGAGED.")
-        local_audit_logger.secure_log_action("SAFETY_VETO", f"HALT - OVERRODE {intended_pwm_duty_cycle}%")
-        return 0.0  # Instant halt
-        
-    print(f"CLEAR. Passing {intended_pwm_duty_cycle}% to relays.")
-    return intended_pwm_duty_cycle
+    if intended_pwm <= 0.0:
+        return intended_pwm
 
-if __name__ == "__main__":
-    test_pwm = 20.0
-    test_distance = 90.0 
-    final_voltage = evaluate_spatial_veto(test_pwm, test_distance)
-    print(f"FINAL VOLTAGE OUT: {final_voltage}%")
+    if spatial_distance_mm <= STANDARD_CRITICAL_ZONE_MM:
+        print("[Veto Engine] Hazard detected. Severing relays.")
+        return 0.0
+    else:
+        return intended_pwm
