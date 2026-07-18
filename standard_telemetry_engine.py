@@ -1,15 +1,17 @@
 # Project Ebony: Standard Telemetry Engine (Redacted)
-# Public blueprint for sensor data ingestion
+# Public blueprint for hardware sensor polling and data ingestion
 
 import random
 
-def poll_standard_sensors():
+def poll_hardware_sensors():
     try:
-        # Standard hardware polling structure
-        standard_radio_dist = random.uniform(100.0, 5000.0)
-        standard_spatial_dist = random.uniform(50.0, 2000.0)
-        
-        return standard_radio_dist, standard_spatial_dist
+        # Simulated standard sensor readouts
+        radio_distance = random.uniform(10.0, 5000.0)
+        spatial_distance = random.uniform(10.0, 2000.0)
+        return radio_distance, spatial_distance
     except Exception as e:
-        print(f"Sensor error: {e}")
+        print(f"CRITICAL: Sensor array severed. {e}")
         return 0.0, 0.0
+
+def execute_telemetry_sweep():
+    return poll_hardware_sensors()
