@@ -1,0 +1,18 @@
+# Chapter 20: Sovereign Micro-Grid Overwatch – The Jackery Power Matrix
+
+**Architect:** Jeffery Humphrey | CEO, Humphrey Virtual Farms  
+**System:** Project Ebony (Evont)  
+**Status:** Executable Logic, Cloud Deficient  
+
+## The Threat of Power Starvation
+In autonomous kinetic operations, an unmonitored power drop is as dangerous as a physical collision. If the supply voltage feeding the drive-by-wire system drops unexpectedly, the physical relays can fail in an unpredictable or "open" state, resulting in a runaway asset. Most commercial systems monitor battery life via a cloud API. If the connection drops, the system flies blind.
+
+## The Localized Overwatch Daemon
+Project Ebony completely severs the power management system from the cloud. We utilize portable Jackery micro-grids stationed directly at the asset's perimeter. 
+
+To prevent power starvation from compromising the Kinetic Guillotine, we engineered the **Microgrid Power Matrix**.
+1. **Parallel Execution:** A background overwatch daemon runs in parallel to the main sub-millisecond vision loop. It does not steal compute cycles from the spatial matrix.
+2. **Direct Telemetry:** The daemon polls the local Jackery I2C/UART bus directly, completely bypassing manufacturer APIs.
+3. **Controlled Severance:** If the local voltage drops below the critical brownout threshold (e.g., 19.5V on a 24V architecture), the daemon instantly triggers the Kinetic Guillotine. The system intentionally drops the physical relays to zero, securing the asset's momentum before executing a safe OS shutdown.
+
+Energy independence is not just about off-grid charging; it is the mathematical guarantee that the machine will permanently refuse to operate if its power supply cannot sustain the absolute integrity of its safety loop.
