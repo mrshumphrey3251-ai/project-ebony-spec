@@ -68,6 +68,7 @@ This public repository is divided into discrete, bare-metal specifications defin
 *   `operator_terminal.py`: Command-line execution interface for real-time sovereign edge node command and telemetry auditing.
 *   `kinetic_guillotine_veto.py`: Hard-severance override module guaranteeing absolute physical operator supremacy over autonomous loops.
 *   `SOVEREIGN_VOICE_ACTUATION_PROTOCOL.md`: Acoustic command authentication schema for hands-free kinetic intervention.
+*   `sovereign_voice_actuator.py`: Active runtime execution engine that authenticates biometric voice-prints and routes acoustic override directives directly through the CAGE substrate matrix.
 *   `hvf_sovereign_doctrine.md`: Core foundational philosophy and operational thesis of Humphrey Virtual Farms.
 *   `the_global_hijack_manifesto.md`: Strategic analysis of decentralized bare-metal infrastructure defense against institutional cloud capture.
 
@@ -80,6 +81,7 @@ This public repository is divided into discrete, bare-metal specifications defin
 *   **Security Layer:** FIPS 203 Post-Quantum Encryption Layer & Hardware TPM 2.0
 *   **Network Mesh:** Decentralized Sovereign Mesh Array (Sub-GHz, Offline-First Protocol Architecture)
 *   **Hardware Abstraction:** CAGE Polymorphic Substrate Routing (Silicon-to-Photonic Waveguide Bridge)
+*   **Command Interface:** Biometric Acoustic Actuation & Kinetic Guillotine Severance
 
 ---
 
