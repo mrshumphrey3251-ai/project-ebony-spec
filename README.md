@@ -18,7 +18,7 @@ We do not care whose brand is stamped on the chassis or whose telemetry sensors 
 | :--- | :--- | :--- | :--- |
 | **HVF-SPEC-STAGE3-001** | Protocols Theta, Iota, Kappa | Autonomous Swarm Orchestration & Edge AI Roadmap | [STAGE_3_SWARM_EDGE_AI_ROADMAP.md](./STAGE_3_SWARM_EDGE_AI_ROADMAP.md) |
 | **HVF-SPEC-GAME-C2-001** | Protocol Eta | Tactical C2 Operator Training Game Engine Spec | [TACTICAL_C2_GAME_ENGINE_SPEC.md](./TACTICAL_C2_GAME_ENGINE_SPEC.md) |
-| **HVF-SPEC-CORE-001** | Protocols Gamma, Delta | Physical Safety Floor & Cryptographic Attestation | *In Active Development (See Core Architecture)* |
+| **HVF-SPEC-CORE-001** | Protocols Gamma, Delta | Physical Safety Floor & Cryptographic Attestation | [HVF_SPEC_CORE_001.md](./HVF_SPEC_CORE_001.md) |
 
 ---
 
