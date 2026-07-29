@@ -38,3 +38,10 @@ We do not care whose brand is stamped on the chassis or whose telemetry sensors 
 
 ## 4. COMPLIANCE & INTEGRATION MANDATE
 All external contractors, software vendors, and hardware integrators submitting pull requests or proposing commercial integrations must verify their code against our bare-metal execution benchmarks. Zero cloud connectivity is permitted for safety-critical interlock paths.
+
+
+---
+
+## 🔗 HVF NEXUS CORE V2: BARE-METAL IMPLEMENTATION
+
+The redacted C++ kinetic safety frameworks, core execution pipelines, and the definitive **HVF Sovereign Infrastructure Thesis** are publicly maintained in **[HVF NEXUS CORE V2](https://github.com/mrshumphrey3251-ai/HVF_NEXUS_CORE_V2)**.
