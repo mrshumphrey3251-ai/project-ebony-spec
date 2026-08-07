@@ -1,4 +1,13 @@
 # PROJECT EBONY: KINETIC SAFETY MANIFEST
+
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
 ## Decoupling Bare-Metal Vetoes from Software Budgets
 
 The prevailing industry framework for AI authorization relies on "safety budgets"—monitoring aggregate software states and halting an agent if it crosses a digital threshold (e.g., data exfiltration limits). 

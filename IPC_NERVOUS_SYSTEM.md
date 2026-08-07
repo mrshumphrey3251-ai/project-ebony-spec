@@ -1,5 +1,14 @@
 # KINETIC GOVERNANCE: Bare-Metal Inter-Process Communication (IPC)
 
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
+
 When a localized DLA vision model identifies a target vector, that data must be routed to the physical actuators. Standard architectures accomplish this by running internal web servers (HTTP/REST) or generic network loops (TCP/IP). In heavy industry, network stack overhead introduces unacceptable latency spikes.
 
 Project Ebony bypasses the networking layer entirely. 

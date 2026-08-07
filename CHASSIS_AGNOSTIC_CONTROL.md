@@ -1,5 +1,14 @@
 # KINETIC GOVERNANCE: Chassis-Agnostic Kinematics
 
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
+
 True physical autonomy cannot be hardcoded to a single chassis type. The intelligence layer must remain entirely decoupled from the physical locomotion layer.
 
 Project Ebony utilizes a **Kinematic Translation Matrix** to allow the exact same NVIDIA Jetson edge node to govern entirely different physical machines simply by updating a JSON configuration file.

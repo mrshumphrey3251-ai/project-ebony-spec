@@ -1,5 +1,14 @@
 # KINETIC GOVERNANCE: Out-of-Band (OOB) Sub-GHz Severance
 
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
+
 In heavy physical autonomy, software-based Emergency Stops are an illusion of safety. If an E-Stop relies on the primary operating system, a local Wi-Fi mesh, or a tablet application, it introduces multiple points of catastrophic failure. If the tablet dies, the operator cannot stop the machine.
 
 Project Ebony utilizes an **Out-of-Band (OOB) Sub-GHz Severance** architecture.

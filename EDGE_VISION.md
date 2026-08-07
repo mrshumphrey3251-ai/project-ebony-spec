@@ -1,5 +1,14 @@
 # KINETIC GOVERNANCE: GPS-Denied Optical Navigation
 
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
+
 In environments with heavy overhead interference—such as dense agricultural canopies, subterranean mining shafts, or deep-sea operations—external positioning signals like RTK GPS are completely nonviable. The machine must generate its own centimeter-level precision internally.
 
 ### The Offline Vision Matrix

@@ -1,5 +1,14 @@
 # CORE_ENGINE: Sovereign Runtime & Deterministic Execution Specification
 
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
+
 This specification defines the bare-metal execution architecture, deterministic thread scheduling, and memory isolation protocols for the Project Ebony core runtime loop operating on edge-native silicon (NVIDIA Jetson / ARM64).
 
 ## 1. Deterministic Execution Loop & Kernel Isolation

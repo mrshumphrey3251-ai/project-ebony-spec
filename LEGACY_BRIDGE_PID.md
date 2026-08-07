@@ -1,5 +1,14 @@
 # KINETIC GOVERNANCE: Bare-Metal PID Physics Engine
 
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
+
 Retrofitting legacy agricultural iron (e.g., an 80-year-old Allis Chalmers G) with autonomous capability requires extreme mechanical empathy. You cannot apply binary voltage (100% ON or OFF) to decades-old steering linkages; it will snap the metal.
 
 Project Ebony utilizes a locally executed Proportional-Integral-Derivative (PID) matrix written in C++ to act as a physical shock-absorber.

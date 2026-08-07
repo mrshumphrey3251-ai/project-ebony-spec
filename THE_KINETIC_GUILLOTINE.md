@@ -1,5 +1,14 @@
 # THE KINETIC GUILLOTINE: The Lethal Lie of "Cloud-Control" and the Rise of Digital Sharecropping in Heavy Industry
 
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
+
 The tech industry is selling a multi-billion-dollar hallucination. Look at the marketing brochures from Silicon Valley, and you will see a utopian vision of "smart farming," "connected mining," and "cloud-integrated manufacturing" powered by theoretical, infinite cloud computing. 
 
 But when you step off the corporate campus, step onto the dirt, the oil rig, or the factory floor, and look at the actual telemetry—the empirical data paints a terrifying picture of centralized dependency. We are not experiencing an industrial revolution. We are walking into a trap. 

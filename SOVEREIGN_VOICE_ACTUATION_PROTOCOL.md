@@ -1,5 +1,14 @@
 # Project Ebony: Sovereign Edge NLP & ADA-Compliant Actuation
 
+> **[HVF EXECUTIVE DISCLAIMER]**
+> **PROPERTY OF HUMPHREY VIRTUAL FARM.**
+> **EACH FILE IS ENTIRELY OF MY OWN DESIGN, CREATED WITHOUT PREVIOUS KNOWLEDGE OF, OR DERIVATION FROM, ANY OTHER WORK.**
+> **PUBLIC DISCLOSURE OF THIS ARCHITECTURAL BLUEPRINT IS FOR DEMONSTRATION ONLY.**
+> **THIS DOES NOT GRANT USAGE, MODIFICATION, OR DISTRIBUTION RIGHTS.**
+> **UNAUTHORIZED REPLICATION OR COMMERCIAL DEPLOYMENT IS STRICTLY PROHIBITED.**
+
+
+
 ## 1. Architectural Philosophy: The Right to Sovereign Execution
 Modern enterprise machinery and aerial assets rely on corporate-controlled, cloud-dependent "walled gardens" for advanced features like voice actuation. This creates an institutional vulnerability and violates the fundamental Right to Repair and Operator Sovereignty. Project Ebony bypasses this dependency by migrating Natural Language Processing (NLP) entirely to the air-gapped edge.
 
